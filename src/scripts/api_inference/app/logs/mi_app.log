@@ -1,0 +1,37 @@
+
+2025-03-07 14:32:12,952 - root - INFO - predicci贸n realizada con naive_bayes_model 
+                     entradas: Culmen_Length=10.0 Culmen_Depth=100.0 Flipper_Length=20.0 Body_Mass=80.0 
+                     salida: [2]
+2025-03-09 19:31:12,757 - root - INFO - predicci贸n realizada con naive_bayes_model 
+                     entradas: Culmen_Length=0.5 Culmen_Depth=0.3 Flipper_Length=0.8 Body_Mass=1.0 
+                     salida: [1]
+2025-03-09 19:31:16,647 - root - INFO - predicci贸n realizada con naive_bayes_model 
+                     entradas: Culmen_Length=0.5 Culmen_Depth=0.3 Flipper_Length=0.8 Body_Mass=1.0 
+                     salida: [1]
+2025-03-09 20:40:04,264 - root - INFO - predicci贸n realizada con naive_bayes_model 
+                     entradas: Culmen_Length=0.8 Culmen_Depth=0.0 Flipper_Length=0.2 Body_Mass=0.1 
+                     salida: [0]
+2025-03-09 20:48:38,300 - root - INFO - predicci贸n realizada con naive_bayes_model 
+                     entradas: Culmen_Length=0.2 Culmen_Depth=0.4 Flipper_Length=0.5 Body_Mass=0.5 
+                     salida: [1]
+2025-03-11 03:47:46,184 - root - INFO - predicci贸n realizada con model_logreg 
+                     entradas: Culmen_Length=0.0 Culmen_Depth=0.0 Flipper_Length=0.0 Body_Mass=0.0 
+                     salida: [0]
+2025-03-11 03:49:34,688 - root - INFO - predicci贸n realizada con naive_bayes_model 
+                     entradas: Culmen_Length=0.0 Culmen_Depth=0.0 Flipper_Length=0.0 Body_Mass=0.0 
+                     salida: [1]
+2025-03-11 03:49:38,646 - root - INFO - predicci贸n realizada con naive_bayes_model 
+                     entradas: Culmen_Length=0.0 Culmen_Depth=0.0 Flipper_Length=0.0 Body_Mass=0.0 
+                     salida: [1]
+2025-03-11 04:27:06,804 - root - INFO - predicci贸n realizada con model_logreg 
+                     entradas: Culmen_Length=0.0 Culmen_Depth=0.0 Flipper_Length=0.0 Body_Mass=0.0 
+                     salida: [0]
+2025-04-08 11:04:06,349 - root - INFO - predicci髇 realizada con model_logreg 
+                     entradas: Culmen_Length=0.0 Culmen_Depth=0.0 Flipper_Length=0.0 Body_Mass=0.0 
+                     salida: [0]
+2025-04-08 11:04:07,720 - root - INFO - predicci髇 realizada con model_logreg 
+                     entradas: Culmen_Length=0.0 Culmen_Depth=0.0 Flipper_Length=0.0 Body_Mass=0.0 
+                     salida: [0]
+2025-04-08 11:08:06,666 - root - INFO - predicci髇 realizada con model_logreg 
+                     entradas: Culmen_Length=45.2 Culmen_Depth=14.8 Flipper_Length=210.0 Body_Mass=3800.0 
+                     salida: [2]
