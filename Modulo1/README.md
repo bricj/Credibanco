@@ -1,5 +1,7 @@
 # Modulo 1: Fundamentos para el desarrollo de servicios analíticos automatizados
 
+## Sesion 1
+
 En la presentación del modulo 1 se abordaron conceptos como APIs e implementación a través del servicio FASTAPI, Github y Docker.
 
 El objetivo del presente repositorio es disponibilizar los ejemplos prácticos para su exploración y ejecución. De igual forma, el objetivo es que las herramientas expuestas sean guía para futuras implementaciones.
@@ -45,11 +47,15 @@ Importante instalar python con la librería "PIP".
 
 Una vez realizada la instalación, instalar la librería "UV" con el comando:
 
-
+pip install uv
 
 git: https://git-scm.com/
 
 Si se está utilizando windows, se recomienda descargar gitbash como consola de comandos, utilizar la terminal de visual studio code o cualquier IDE de preferencia.
+
+Se debe clonar el repositorio en una ubicación de la máquina local (garantizar que está instalado git)
+
+git clone https://github.com/bricj/Credibanco.git
 
 b) Preparacion ambiente virtual uv:
 
@@ -71,7 +77,7 @@ b) Preparacion ambiente virtual uv:
 
         Una vez se carguen las dependencias, dar click en "select kernel" y seleccionar ".venv"
 
-![alt text](image.png)
+        ![alt text](image.png)
 
         Si no se evidencia el kernel, es necesario registrarlo:
 
@@ -119,9 +125,3 @@ e) Actividad:
             EJ: pd.DataFrame(data)
 
         - Considere la información obtenida, realice la lectura de datos, procese la información de tal manera que se genere un resumen de los datos (agrupamiento mediante group by - misma lógica que las tablas dinámica) y disponibilizar la información en fastapi para consulta en el puerto 8980.
-
-
-
-
-   
-
