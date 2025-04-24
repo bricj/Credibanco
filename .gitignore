@@ -2,3 +2,4 @@ Modulo1/.venv/
 Modulo1/src/scripts/activity/__pycache__/
 Modulo1/src/scripts/api_inference/app/__pycache__/
 Modulo1/src/scripts/api_inference/app/.venv_api_inference/
+Modulo1/Docker/DockerCompose/__pycache__/
