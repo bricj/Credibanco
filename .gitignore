@@ -4,3 +4,5 @@ Modulo1/src/scripts/api_inference/app/__pycache__/
 Modulo1/src/scripts/api_inference/app/.venv_api_inference/
 Modulo1/Docker/DockerCompose/__pycache__/
 Modulo2/src/.venv/
+Modulo3/.venv
+Modulo3/data
