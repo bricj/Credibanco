@@ -5,4 +5,5 @@ En el presente repositorio se encuentran los casos de uso vistos en cada sesión
 A continuación se expone el contenido general del repositorio:
 
 - Módulo 1: Fundamentos para el desarrollo de servicios analíticos automatizados
-- Módulo 2: Automatización y orquestación de pipelines en AWS
+- Módulo 2: Analisis exploratorio de datos y definición de límites
+- Modulo 3: Introducción Langchain
