@@ -49,6 +49,8 @@ deactivate
 rm -rf .venv -r
 ```
 
-# Estrutura de carpetas
+# Folders Structure
 
-![Estructura de Carpetas](image.png)
+The following image presents the recommend structure for the file case.ipynb
+
+![Folders stucture](image.png)
