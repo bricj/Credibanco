@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  pgvector:
+    image: ankane/pgvector:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ai
+      POSTGRES_PASSWORD: ai
+      POSTGRES_DB: ai
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init-vector.sql:/docker-entrypoint-initdb.d/init-vector.sql:ro
+
+  # API FastAPI para los agentes
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - pgvector
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SERPAPI_API_KEY=${SERPAPI_API_KEY}
+      - DATABASE_URL=postgresql+psycopg2://ai:ai@pgvector:5432/ai
+    volumes:
+      - ./app:/app
+
+volumes:
+  pgdata:

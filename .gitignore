@@ -6,3 +6,6 @@ Modulo1/Docker/DockerCompose/__pycache__/
 Modulo2/src/.venv/
 Modulo3/.venv
 Modulo3/data
+Modulo3/project/.env
+Modulo3/project/app/__pycache__
+Modulo3/project/app/agents/__pycache__
