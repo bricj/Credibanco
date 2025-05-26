@@ -19,4 +19,7 @@ dependencies = [
     "numpy>=2.2.1",
     "scikit-learn>=1.6.1",
     "imbalanced-learn>=0.13.0",
+    "crewai[tools]>=0.15.0,<1.0.0",
+    "crewai-tools>=0.45.0",
+    "langgraph>=0.4.7",
 ]

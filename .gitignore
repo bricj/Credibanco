@@ -9,3 +9,5 @@ Modulo3/data
 Modulo3/project/.env
 Modulo3/project/app/__pycache__
 Modulo3/project/app/agents/__pycache__
+Modulo3/noteboooks/salaries.db
+Modulo3/noteboooks/workflow_graph.png
