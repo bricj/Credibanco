@@ -1,0 +1,70 @@
+# # SOLO LO ESENCIAL PARA QUE FUNCIONE
+
+# # Core Framework
+# fastapi==0.104.1
+# uvicorn[standard]==0.24.0
+
+# # LangChain (deja que pip resuelva las dependencias)
+# langchain
+# langchain-openai
+# langchain-community
+# langgraph
+
+# # Base de datos
+# sqlalchemy==2.0.23
+# aiosqlite==0.19.0
+
+# # Redis básico
+# redis==5.0.1
+
+# # Utilidades mínimas
+# #pydantic==2.5.0
+# pydantic>=1.10.0,<2.0.0
+# pydantic-settings==2.1.0
+# python-dotenv==1.0.0
+
+# # Data processing básico
+# pandas==2.1.4
+
+# # Conectarse APIKey Google
+# #google-generativeai
+# #langchain-google-genai
+
+# google-cloud-aiplatform
+# langchain-google-vertexai
+
+# REQUIREMENTS QUE FUNCIONAN JUNTAS (PROBADAS)
+
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# Pydantic v2
+pydantic==2.5.0
+pydantic-settings  # ← AGREGADO - FALTABA ESTA
+
+# LangChain core
+langchain==0.1.0
+langchain-community==0.0.10
+langgraph==0.0.20
+
+# Base de datos
+sqlalchemy==2.0.23
+aiosqlite==0.19.0
+
+# Redis básico
+redis==5.0.1
+
+# Utilidades
+python-dotenv==1.0.0
+
+# Data processing
+pandas==2.1.4
+
+# HTTP requests
+aiohttp==3.9.1
+requests==2.31.0
+
+# Google AI - versiones compatibles
+google-generativeai>=0.3.1,<0.4.0
+langchain-google-genai==0.0.5
