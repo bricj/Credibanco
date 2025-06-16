@@ -34,14 +34,14 @@ agent-teams-project/
 │       ├── __init__.py           # Inicialización de configuración
 │       └── settings.py           # Configuraciones y variables de entorno
 │
-├── .env                           # Variables de entorno
-├── cloudbuild.yaml               # Configuración para Google Cloud Build
-├── deploy_simple.sh              # Script de despliegue simple
-├── docker-compose.yml            # Configuración Docker Compose
-├── Dockerfile                    # Imagen Docker del proyecto
-├── README.md                     # Documentación del proyecto
-├── requirements.txt              # Dependencias de Python
-├── run.py                        # Script principal de ejecución
+├── .env                          # Variables de entorno (NO incluir en Git)
+├── cloudbuild.yaml              # Configuración para Google Cloud Build
+├── deploy_simple.sh             # Script de despliegue simple
+├── docker-compose.yml           # Configuración Docker Compose
+├── Dockerfile                   # Imagen Docker del proyecto
+├── README.md                    # Documentación del proyecto
+├── requirements.txt             # Dependencias de Python
+├── run.py                       # Script principal de ejecución
 └── telegram_bot.py              # Bot de Telegram independiente
 
 ## 🚀 Características Principales
