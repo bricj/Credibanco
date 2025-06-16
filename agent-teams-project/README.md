@@ -5,6 +5,7 @@ A continuación se presenta el desarrollo del agente en bootcamp: ciencia de dat
 
 ## 📁 Estructura del Proyecto
 
+```
 agent-teams-project/
 ├── data/                           # Datos y bases de datos
 │   ├── company_data.db            # Base de datos SQLite con información de la empresa
@@ -43,6 +44,7 @@ agent-teams-project/
 ├── requirements.txt             # Dependencias de Python
 ├── run.py                       # Script principal de ejecución
 └── telegram_bot.py              # Bot de Telegram independiente
+```
 
 ## 🚀 Características Principales
 
