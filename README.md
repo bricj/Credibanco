@@ -7,3 +7,5 @@ A continuación se expone el contenido general del repositorio:
 - Módulo 1: Fundamentos para el desarrollo de servicios analíticos automatizados
 - Módulo 2: Analisis exploratorio de datos y definición de límites
 - Modulo 3: Introducción Langchain
+- Modulo 4: Introducción agente en GCP (Agent Development Kit)
+- Modulo 5: Implementación Agente en Producción (Proyecto)

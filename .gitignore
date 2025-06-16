@@ -11,3 +11,9 @@ Modulo3/project/app/__pycache__
 Modulo3/project/app/agents/__pycache__
 Modulo3/noteboooks/salaries.db
 Modulo3/noteboooks/workflow_graph.png
+agent-teams-project/data/company_data.db
+agent-teams-project/data/creditcard.csv
+agent-teams-project/src/agent/__pycache__
+agent-teams-project/src/api/__pycache__
+agent-teams-project/src/config/__pycache__
+agent-teams-project/.env
