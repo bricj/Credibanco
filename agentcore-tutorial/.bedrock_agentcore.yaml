@@ -1,0 +1,48 @@
+default_agent: agent_deployment_tutorial_agent
+agents:
+  agent_deployment_tutorial_agent:
+    name: agent_deployment_tutorial_agent
+    entrypoint: C:/Users/Sebastian/Documents/Projects/Credibanco/agentcore-tutorial/agent_deployment/tutorial_agent.py
+    deployment_type: container
+    runtime_type: null
+    platform: linux/arm64
+    container_runtime: none
+    source_path: C:\Users\Sebastian\Documents\Projects\Credibanco\agentcore-tutorial\agent_deployment
+    aws:
+      execution_role: arn:aws:iam::501565339944:role/AmazonBedrockAgentCoreSDKRuntime-us-east-1-854f686f2e
+      execution_role_auto_create: false
+      account: '501565339944'
+      region: us-east-1
+      ecr_repository: 501565339944.dkr.ecr.us-east-1.amazonaws.com/bedrock-agentcore-agent_deployment_tutorial_agent
+      ecr_auto_create: false
+      s3_path: null
+      s3_auto_create: false
+      network_configuration:
+        network_mode: PUBLIC
+        network_mode_config: null
+      protocol_configuration:
+        server_protocol: HTTP
+      observability:
+        enabled: true
+      lifecycle_configuration:
+        idle_runtime_session_timeout: null
+        max_lifetime: null
+    bedrock_agentcore:
+      agent_id: null
+      agent_arn: null
+      agent_session_id: b313b43d-84ac-458f-9279-c692e1e18035
+    codebuild:
+      project_name: null
+      execution_role: null
+      source_bucket: null
+    memory:
+      mode: STM_AND_LTM
+      memory_id: agent_deployment_tutorial_agent_mem-hcTxNR8hOm
+      memory_arn: arn:aws:bedrock-agentcore:us-east-1:501565339944:memory/agent_deployment_tutorial_agent_mem-hcTxNR8hOm
+      memory_name: agent_deployment_tutorial_agent_mem
+      event_expiry_days: 30
+      first_invoke_memory_check_done: true
+      was_created_by_toolkit: false
+    authorizer_configuration: null
+    request_header_configuration: null
+    oauth_configuration: null

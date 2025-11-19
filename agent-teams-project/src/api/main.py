@@ -185,6 +185,209 @@ async def get_table_schema(table_name: str):
         logger.error(f"Error obteniendo schema: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+############################ RAG ########################################################
+
+@app.post("/api/rag/ingest")
+async def ingest_rag_documents():
+    """Ingestar todos los documentos para RAG"""
+    try:
+        result = multi_agent_system.rag_agent.ingest_all_documents()
+        logger.info(f"RAG Ingesta completada: {result}")
+        return result
+    except Exception as e:
+        logger.error(f"Error en ingesta RAG: {e}")
+        return {"success": False, "error": str(e)}
+
+@app.get("/api/rag/stats")
+async def get_rag_stats():
+    """Obtener estadísticas del sistema RAG"""
+    try:
+        stats = multi_agent_system.rag_agent.get_knowledge_stats()
+        return stats
+    except Exception as e:
+        logger.error(f"Error obteniendo stats RAG: {e}")
+        return {"error": str(e)}
+
+@app.post("/api/rag/debug")
+async def debug_rag_search(request: dict):
+    """Debug de búsqueda RAG"""
+    try:
+        query = request.get("query", "")
+        k = request.get("k", 5)
+        
+        if not query:
+            raise HTTPException(status_code=400, detail="Query requerida")
+        
+        result = multi_agent_system.rag_agent.debug_search(query, k)
+        return result
+    except Exception as e:
+        logger.error(f"Error en debug RAG: {e}")
+        return {"error": str(e)}
+
+@app.post("/api/rag/reset")
+async def reset_rag_knowledge():
+    """Resetear completamente la base de conocimiento RAG"""
+    try:
+        result = multi_agent_system.rag_agent.reset_knowledge_base()
+        logger.info(f"RAG Reset completado: {result}")
+        return result
+    except Exception as e:
+        logger.error(f"Error reseteando RAG: {e}")
+        return {"success": False, "error": str(e)}
+
+@app.get("/api/rag/validate")
+async def validate_rag_system():
+    """Validar que el sistema RAG funciona correctamente"""
+    try:
+        # Intentar asegurar vectorstore
+        vectorstore_ready = multi_agent_system.rag_agent._ensure_vectorstore()
+        
+        if vectorstore_ready:
+            # Hacer validación completa
+            validation = multi_agent_system.rag_agent._validate_vectorstore()
+            return {
+                "status": "ready",
+                "vectorstore_ready": True,
+                "validation": validation
+            }
+        else:
+            return {
+                "status": "not_ready",
+                "vectorstore_ready": False,
+                "message": "Vectorstore no disponible. Ejecuta /api/rag/ingest primero."
+            }
+    except Exception as e:
+        logger.error(f"Error validando RAG: {e}")
+        return {"status": "error", "error": str(e)}
+
+
+########################## ENDPOINTS INICIALIZACION #####################################
+
+@app.post("/api/system/initialize")
+async def initialize_complete_system():
+    """Inicializar completamente el sistema multi-agente"""
+    try:
+        results = {
+            "sql_initialization": {"status": "pending"},
+            "rag_initialization": {"status": "pending"},
+            "system_status": {"status": "pending"}
+        }
+        
+        # 1. Verificar/inicializar SQL
+        try:
+            # Verificar conexión a base de datos
+            sql_result = multi_agent_system.sql_agent.sql_agent.invoke({
+                "input": "List all available tables",
+                "chat_history": []
+            })
+            results["sql_initialization"] = {
+                "status": "success",
+                "message": "Base de datos SQL conectada",
+                "tables_available": True
+            }
+        except Exception as e:
+            results["sql_initialization"] = {
+                "status": "error",
+                "error": str(e)
+            }
+        
+        # 2. Inicializar RAG
+        try:
+            rag_stats = multi_agent_system.rag_agent.get_knowledge_stats()
+            
+            if rag_stats.get("vectorstore_info", {}).get("documents_in_vectorstore", 0) == 0:
+                # Hacer ingesta automática
+                ingest_result = multi_agent_system.rag_agent.ingest_all_documents()
+                results["rag_initialization"] = {
+                    "status": "success" if ingest_result.get("success") else "error",
+                    "message": "Documentos procesados automáticamente",
+                    "documents_processed": ingest_result.get("documents_processed", 0),
+                    "chunks_created": ingest_result.get("chunks_created", 0)
+                }
+            else:
+                results["rag_initialization"] = {
+                    "status": "success",
+                    "message": "RAG ya inicializado",
+                    "documents_in_vectorstore": rag_stats["vectorstore_info"]["documents_in_vectorstore"]
+                }
+        except Exception as e:
+            results["rag_initialization"] = {
+                "status": "error",
+                "error": str(e)
+            }
+        
+        # 3. Estado final del sistema
+        sql_ready = results["sql_initialization"]["status"] == "success"
+        rag_ready = results["rag_initialization"]["status"] == "success"
+        
+        results["system_status"] = {
+            "status": "ready" if (sql_ready and rag_ready) else "partial",
+            "sql_agent": "ready" if sql_ready else "error",
+            "rag_agent": "ready" if rag_ready else "error",
+            "hybrid_mode": "available" if (sql_ready and rag_ready) else "limited"
+        }
+        
+        return results
+        
+    except Exception as e:
+        logger.error(f"Error en inicialización completa: {e}")
+        return {
+            "status": "error",
+            "error": str(e)
+        }
+
+@app.get("/api/system/status")
+async def get_system_status():
+    """Estado completo del sistema"""
+    try:
+        # Verificar SQL
+        sql_status = "unknown"
+        try:
+            multi_agent_system.sql_agent.sql_agent.invoke({
+                "input": "SELECT 1",
+                "chat_history": []
+            })
+            sql_status = "ready"
+        except:
+            sql_status = "error"
+        
+        # Verificar RAG
+        rag_status = "unknown"
+        rag_docs = 0
+        try:
+            rag_stats = multi_agent_system.rag_agent.get_knowledge_stats()
+            rag_docs = rag_stats.get("vectorstore_info", {}).get("documents_in_vectorstore", 0)
+            rag_status = "ready" if rag_docs > 0 else "empty"
+        except:
+            rag_status = "error"
+        
+        return {
+            "system_ready": sql_status == "ready" and rag_status == "ready",
+            "components": {
+                "sql_agent": {
+                    "status": sql_status,
+                    "description": "Análisis de base de datos transaccionales"
+                },
+                "rag_agent": {
+                    "status": rag_status,
+                    "documents_loaded": rag_docs,
+                    "description": "Consultas de documentos y conocimiento"
+                },
+                "router_agent": {
+                    "status": "ready",
+                    "description": "Clasificación inteligente de consultas"
+                }
+            },
+            "capabilities": {
+                "sql_queries": sql_status == "ready",
+                "document_queries": rag_status == "ready",
+                "hybrid_queries": sql_status == "ready" and rag_status == "ready"
+            }
+        }
+        
+    except Exception as e:
+        return {"error": str(e)}
+
 # ==================== ENDPOINTS SISTEMA ====================
 
 @app.get("/health")
@@ -216,7 +419,7 @@ async def health_check():
                 "version": "2.0",
                 "orchestrator_enabled": True,
                 "router_agent_enabled": True,
-                "rag_agent_enabled": False,  # Será True cuando implementemos RAG
+                "rag_agent_enabled": True,  # Será True cuando implementemos RAG
                 "sql_agent_enabled": True
             }
         }

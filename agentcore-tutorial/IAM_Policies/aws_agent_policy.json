@@ -1,0 +1,38 @@
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "BedrockModelAccess",
+			"Effect": "Allow",
+			"Action": [
+				"bedrock:InvokeModel",
+				"bedrock:InvokeModelWithResponseStream"
+			],
+			"Resource": [
+				"arn:aws:bedrock:*::foundation-model/amazon.titan-*",
+				"arn:aws:bedrock:*::foundation-model/anthropic.claude-*",
+				"arn:aws:bedrock:*::foundation-model/us.anthropic.claude-*"
+			]
+		},
+		{
+			"Sid": "BedrockAgentRuntime",
+			"Effect": "Allow",
+			"Action": [
+				"bedrock-agent-runtime:InvokeAgent",
+				"bedrock-agent-runtime:Retrieve",
+				"bedrock-agent-runtime:RetrieveAndGenerate"
+			],
+			"Resource": "*"
+		},
+		{
+			"Sid": "BedrockAgentAccess",
+			"Effect": "Allow",
+			"Action": [
+				"bedrock:GetAgent",
+				"bedrock:ListAgents",
+				"bedrock:InvokeAgent"
+			],
+			"Resource": "*"
+		}
+	]
+}

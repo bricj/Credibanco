@@ -1,3 +1,54 @@
+# # Version Agent SQL
+# steps:
+#   # Build the container image
+#   - name: 'gcr.io/cloud-builders/docker'
+#     args: ['build', '-t', 'gcr.io/$PROJECT_ID/agent-teams:latest', '.']
+  
+#   # Push the container image to Container Registry
+#   - name: 'gcr.io/cloud-builders/docker'
+#     args: ['push', 'gcr.io/$PROJECT_ID/agent-teams:latest']
+  
+#   # Deploy container image to Cloud Run
+#   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#     entrypoint: gcloud
+#     args:
+#     - 'run'
+#     - 'deploy'
+#     - 'agent-teams'
+#     - '--image'
+#     - 'gcr.io/$PROJECT_ID/agent-teams:latest'
+#     - '--region'
+#     - 'us-central1'
+#     - '--platform'
+#     - 'managed'
+#     - '--allow-unauthenticated'
+#     - '--memory'
+#     - '2Gi'
+#     - '--cpu'
+#     - '2'
+#     - '--timeout'
+#     - '300'
+#     - '--max-instances'
+#     - '3'
+#     - '--set-env-vars'
+#     - 'GCP_PROJECT_ID=${_GCP_PROJECT_ID},GCP_REGION=${_GCP_REGION},LLM_MODEL=${_LLM_MODEL},GOOGLE_API_KEY=${_GOOGLE_API_KEY},DATABASE_URL=${_DATABASE_URL},TELEGRAM_BOT_TOKEN=${_TELEGRAM_BOT_TOKEN}'
+
+# images:
+# - 'gcr.io/$PROJECT_ID/agent-teams:latest'
+
+# # Valores por defecto (se pueden sobrescribir desde línea de comando)
+# substitutions:
+#   _GCP_PROJECT_ID: 'credibancoagent'
+#   _GCP_REGION: 'us-central1'
+#   _LLM_MODEL: 'gemini-1.5-flash'
+#   _DATABASE_URL: 'sqlite:///./data/company_data.db'
+#   _GOOGLE_API_KEY: 'AIzaSyAOWodZyyk0UqxYH3L1m3aZJUijbcfteSA'
+#   _TELEGRAM_BOT_TOKEN: '7309587597:AAF3bdnAWLPVmQ6mr0gYFdn5LQZJE40S6Hs'
+
+#####################################################################################
+
+# Version SQL + RAG
+
 steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
@@ -22,24 +73,33 @@ steps:
     - 'managed'
     - '--allow-unauthenticated'
     - '--memory'
-    - '2Gi'
+    - '4Gi'
     - '--cpu'
     - '2'
     - '--timeout'
-    - '300'
+    - '900'
     - '--max-instances'
-    - '3'
+    - '5'
+    - '--min-instances'
+    - '1'
+    - '--port'
+    - '8080'
     - '--set-env-vars'
-    - 'GCP_PROJECT_ID=${_GCP_PROJECT_ID},GCP_REGION=${_GCP_REGION},LLM_MODEL=${_LLM_MODEL},GOOGLE_API_KEY=${_GOOGLE_API_KEY},DATABASE_URL=${_DATABASE_URL},TELEGRAM_BOT_TOKEN=${_TELEGRAM_BOT_TOKEN}'
+    - 'GCP_PROJECT_ID=${_GCP_PROJECT_ID},GCP_REGION=${_GCP_REGION},LLM_MODEL=${_LLM_MODEL},DATABASE_URL=${_DATABASE_URL}'
+    - '--set-secrets'
+    - 'GOOGLE_API_KEY=google-api-key:latest,TELEGRAM_BOT_TOKEN=telegram-bot-token:latest'
 
-images:
-- 'gcr.io/$PROJECT_ID/agent-teams:latest'
-
-# Valores por defecto (se pueden sobrescribir desde línea de comando)
 substitutions:
   _GCP_PROJECT_ID: 'credibancoagent'
   _GCP_REGION: 'us-central1'
   _LLM_MODEL: 'gemini-1.5-flash'
   _DATABASE_URL: 'sqlite:///./data/company_data.db'
-  _GOOGLE_API_KEY: ''
-  _TELEGRAM_BOT_TOKEN: ''
+  _GOOGLE_API_KEY: 'AIzaSyAOWodZyyk0UqxYH3L1m3aZJUijbcfteSA'
+  _TELEGRAM_BOT_TOKEN: '7309587597:AAF3bdnAWLPVmQ6mr0gYFdn5LQZJE40S6Hs'
+
+images:
+- 'gcr.io/$PROJECT_ID/agent-teams:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: 'E2_HIGHCPU_8'
