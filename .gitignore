@@ -17,3 +17,4 @@ agent-teams-project/src/agent/__pycache__
 agent-teams-project/src/api/__pycache__
 agent-teams-project/src/config/__pycache__
 agent-teams-project/.env
+agent-teams-project\.env
