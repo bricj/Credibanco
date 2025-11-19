@@ -1,0 +1,48 @@
+default_agent: tutorial_agent
+agents:
+  tutorial_agent:
+    name: tutorial_agent
+    entrypoint: C:/Users/Sebastian/Documents/Projects/Credibanco/agentcore-tutorial/agent_deployment/tutorial_agent.py
+    deployment_type: container
+    runtime_type: null
+    platform: linux/arm64
+    container_runtime: none
+    source_path: C:\Users\Sebastian\Documents\Projects\Credibanco\agentcore-tutorial\agent_deployment
+    aws:
+      execution_role: arn:aws:iam::501565339944:role/AmazonBedrockAgentCoreSDKRuntime-us-east-1-f62bfb9fd8
+      execution_role_auto_create: false
+      account: '501565339944'
+      region: us-east-1
+      ecr_repository: 501565339944.dkr.ecr.us-east-1.amazonaws.com/bedrock-agentcore-tutorial_agent
+      ecr_auto_create: false
+      s3_path: null
+      s3_auto_create: false
+      network_configuration:
+        network_mode: PUBLIC
+        network_mode_config: null
+      protocol_configuration:
+        server_protocol: HTTP
+      observability:
+        enabled: true
+      lifecycle_configuration:
+        idle_runtime_session_timeout: null
+        max_lifetime: null
+    bedrock_agentcore:
+      agent_id: tutorial_agent-kACznSADUh
+      agent_arn: arn:aws:bedrock-agentcore:us-east-1:501565339944:runtime/tutorial_agent-kACznSADUh
+      agent_session_id: 12345-12345-12345-12345-12345-12345-B
+    codebuild:
+      project_name: bedrock-agentcore-tutorial_agent-builder
+      execution_role: arn:aws:iam::501565339944:role/AmazonBedrockAgentCoreSDKCodeBuild-us-east-1-f62bfb9fd8
+      source_bucket: bedrock-agentcore-codebuild-sources-501565339944-us-east-1
+    memory:
+      mode: STM_AND_LTM
+      memory_id: tutorial_agent_mem-bln8bdGgLc
+      memory_arn: arn:aws:bedrock-agentcore:us-east-1:501565339944:memory/tutorial_agent_mem-bln8bdGgLc
+      memory_name: tutorial_agent_mem
+      event_expiry_days: 30
+      first_invoke_memory_check_done: true
+      was_created_by_toolkit: false
+    authorizer_configuration: null
+    request_header_configuration: null
+    oauth_configuration: null

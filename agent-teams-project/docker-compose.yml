@@ -1,3 +1,99 @@
+# # Version Agente SQL
+
+# version: '3.8'
+
+# services:
+#   # Servicio de inicialización de base de datos
+#   db-init:
+#     build: .
+#     volumes:
+#       - ./data:/app/data
+#       - ./src:/app/src
+#       - ./scripts:/app/scripts
+#     environment:
+#       - DATABASE_URL=sqlite:///./data/company_data.db
+#     env_file:
+#       - .env
+#     command: python scripts/init_database.py
+#     networks:
+#       - agent-network
+#     profiles:
+#       - init
+
+#   # Aplicación principal
+#   agent-teams:
+#     build: .
+#     ports:
+#       - "8000:8000"
+#     environment:
+#       - DATABASE_URL=sqlite:///./data/company_data.db
+#       - REDIS_URL=redis://redis:6379/0
+#     env_file:
+#       - .env
+#     volumes:
+#       - ./data:/app/data
+#       - ./src:/app/src
+#       - ./scripts:/app/scripts
+#     command: >
+#       sh -c "
+#         echo '🔍 Verificando base de datos...' &&
+#         if [ ! -f ./data/company_data.db ]; then
+#           echo '📊 Inicializando base de datos...' &&
+#           python scripts/init_database.py
+#         else
+#           echo '✅ Base de datos encontrada'
+#         fi &&
+#         echo '🚀 Iniciando servidor...' &&
+#         uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --reload
+#       "
+#     depends_on:
+#       redis:
+#         condition: service_healthy
+#     healthcheck:
+#       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+#       interval: 60s
+#       timeout: 30s
+#       retries: 3
+#       start_period: 60s
+#     restart: unless-stopped
+#     networks:
+#       - agent-network
+
+#   # Servicio Redis
+#   redis:
+#     image: redis:7.4-alpine
+#     ports:
+#       - "6379:6379"
+#     command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+#     volumes:
+#       - redis_data:/data
+#     healthcheck:
+#       test: ["CMD", "redis-cli", "ping"]
+#       interval: 30s
+#       timeout: 30s
+#       retries: 3
+#       start_period: 50s
+#     restart: unless-stopped
+#     networks:
+#       - agent-network
+
+# # Volúmenes para persistencia
+# volumes:
+#   redis_data:
+#     driver: local
+
+# # Red personalizada para aislamiento
+# networks:
+#   agent-network:
+#     driver: bridge
+#     ipam:
+#       config:
+#         - subnet: 172.20.0.0/16
+
+#######################################################################################################
+
+# Versión Agente SQL y RAG
+
 version: '3.8'
 
 services:
@@ -49,10 +145,10 @@ services:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 30s
-      timeout: 10s
+      interval: 60s
+      timeout: 30s
       retries: 3
-      start_period: 40s
+      start_period: 60s
     restart: unless-stopped
     networks:
       - agent-network
@@ -67,10 +163,10 @@ services:
       - redis_data:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
+      interval: 30s
+      timeout: 30s
       retries: 3
-      start_period: 10s
+      start_period: 50s
     restart: unless-stopped
     networks:
       - agent-network

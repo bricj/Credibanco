@@ -68,3 +68,20 @@ requests==2.31.0
 # Google AI - versiones compatibles
 google-generativeai>=0.3.1,<0.4.0
 langchain-google-genai==0.0.5
+
+# ==========================================
+# RAG Híbrido - Dependencias Adicionales
+# ==========================================
+
+# Document Processing
+pypdf==3.17.4
+pdfplumber==0.10.4
+
+# OCR y Procesamiento de Imágenes
+pytesseract==0.3.10
+Pillow==10.1.0
+
+# Text Processing
+unstructured==0.11.8
+
+chromadb==0.4.15
